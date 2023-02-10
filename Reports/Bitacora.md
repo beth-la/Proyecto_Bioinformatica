@@ -145,5 +145,11 @@ round(nrow(rse_gene_SRP118914) / nrow(rse_gene_SRP118914_unfiltered) * 100, 2)
 # De comenzar con 55421 genes, terminaremos trabajando unicamente con 26857
 ```
 
+***Lista de tareas: Viernes 9 Feb 2023***
+
+- [ ] Actualizar y mejorar README del proyecto, agregar link hacia recount3.
+- [ ] Añadir licencia al repositorio.
+- [ ] Realizar pasos iniciales del análisis de expresión.
+
 ## Análisis de expresión diferencial
 
