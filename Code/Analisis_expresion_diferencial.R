@@ -1,17 +1,17 @@
-'''
-Project
-  Analisis de expresion diferencial:Transcriptional and Chromatin Dynamics of Muscle Regeneration
-  after Severe Trauma
+# Project
+#   Analisis de expresion diferencial:Transcriptional and Chromatin Dynamics of Muscle Regeneration
+#   after Severe Trauma
 
-Author
-  Lopez Angeles B. Elizabeth
+# Author
+#   Lopez Angeles B. Elizabeth
 
-Description
-  Descargando datos del proyecto
+# Description
+#   Descargando datos del proyecto
 
-Path
+# Path
 
-'''
+#
+
 ## Load recount3 R package
 library("recount3")
 
@@ -75,5 +75,14 @@ rse_gene_SRP118914$sra_attribute.timepoint <- as.numeric(just_num)
 rse_gene_SRP118914$stage <- factor(ifelse(rse_gene_SRP118914$sra_attribute.timepoint <= 24, "early", "middle"))
 table(rse_gene_SRP118914$stage)
 
-rse_gene_SRP045638$assigned_gene_prop <- rse_gene_SRP045638$recount_qc.gene_fc_count_all.assigned / rse_gene_SRP045638$recount_qc.gene_fc_count_all.total
-summary(rse_gene_SRP045638$assigned_gene_prop)
+# Limpieza de muestras de baja calidad (si es que existen)
+
+rse_gene_SRP118914$assigned_gene_prop <- rse_gene_SRP118914$recount_qc.gene_fc_count_all.assigned / rse_gene_SRP118914$recount_qc.gene_fc_count_all.total
+summary(rse_gene_SRP118914$assigned_gene_prop)
+
+with(colData(rse_gene_SRP118914), tapply(assigned_gene_prop, stage, summary))
+
+# Los datos no parecen tener que ser limpiados:
+hist(rse_gene_SRP118914$assigned_gene_prop)
+table(rse_gene_SRP118914$assigned_gene_prop < 0.3)
+
