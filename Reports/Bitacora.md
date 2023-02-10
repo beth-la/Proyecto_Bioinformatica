@@ -136,6 +136,13 @@ gene_means <- rowMeans(assay(rse_gene_SRP118914, "counts"))
 rse_gene_SRP118914 <- rse_gene_SRP118914[gene_means > 0.1, ]
 round(nrow(rse_gene_SRP118914) / nrow(rse_gene_SRP118914_unfiltered) * 100, 2)
 [1] 48.46
+
+# Entonces:
+> dim(rse_gene_SRP118914_unfiltered)
+[1] 55421    10
+> dim(rse_gene_SRP118914)
+[1] 26857    10
+# De comenzar con 55421 genes, terminaremos trabajando unicamente con 26857
 ```
 
 ## Análisis de expresión diferencial
