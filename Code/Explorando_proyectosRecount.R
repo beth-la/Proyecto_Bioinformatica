@@ -1,6 +1,9 @@
 # Buscando Proyecto
 ## Cambiar el URL de recount3 a Amazon (AWS)
 
+## Load recount3 R package
+library("recount3")
+
 getOption(
   "recount3_url",
   "http://duffel.rail.bio/recount3"
