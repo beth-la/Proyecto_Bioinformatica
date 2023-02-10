@@ -76,13 +76,24 @@ rse_gene_SRP118914$stage <- factor(ifelse(rse_gene_SRP118914$sra_attribute.timep
 table(rse_gene_SRP118914$stage)
 
 # Limpieza de muestras de baja calidad (si es que existen)
-
+# Guardamos nuestros datos
+rse_gene_SRP118914_unfiltered <- rse_gene_SRP118914
 rse_gene_SRP118914$assigned_gene_prop <- rse_gene_SRP118914$recount_qc.gene_fc_count_all.assigned / rse_gene_SRP118914$recount_qc.gene_fc_count_all.total
 summary(rse_gene_SRP118914$assigned_gene_prop)
 
 with(colData(rse_gene_SRP118914), tapply(assigned_gene_prop, stage, summary))
 
-# Los datos no parecen tener que ser limpiados:
+# Revisando calidad de las muestras
 hist(rse_gene_SRP118914$assigned_gene_prop)
 table(rse_gene_SRP118914$assigned_gene_prop < 0.3)
+
+# Calculando niveles medios de la expresion de los genes en las muestras:
+gene_means <- rowMeans(assay(rse_gene_SRP118914, "counts"))
+summary(gene_means)
+
+# Utilizamos solo awurellos genes cuyo valor medio de expresion sea mayor a 0.1
+rse_gene_SRP118914 <- rse_gene_SRP118914[gene_means > 0.1, ]
+
+## Porcentaje de genes que se retuvieron
+round(nrow(rse_gene_SRP118914) / nrow(rse_gene_SRP118914_unfiltered) * 100, 2)
 
