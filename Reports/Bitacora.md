@@ -14,7 +14,9 @@ usethis::proj_set("C:/Users/Brenda Elizabeth L/Documents/Proyecto_Bioinformatica
 - Se eligió el proyecto SRP118914 "Transcriptional and Chromatin Dynamics of Muscle Regeneration after Severe Trauma".
 - Se descargaron los datos desde Recount3.
 
-## Análisis de expresión diferencial 
+## Limpieza y normalización de datos
+
+***Jueves 8 Feb 2023***
 
 Una vez habiendo descargado los datos, podemos explorarlos obteniendo que:
 
@@ -100,7 +102,7 @@ En los datos de las muestras que se tiene, únicamente hay de 3 a 72 horas despu
      4      6 
 ```
 
-Para eliminar muestras de mala calidad:
+***Para eliminar muestras de mala calidad:***
 
 ```R
 rse_gene_SRP118914$assigned_gene_prop <- rse_gene_SRP118914$recount_qc.gene_fc_count_all.assigned / rse_gene_SRP118914$recount_qc.gene_fc_count_all.total
@@ -135,4 +137,6 @@ rse_gene_SRP118914 <- rse_gene_SRP118914[gene_means > 0.1, ]
 round(nrow(rse_gene_SRP118914) / nrow(rse_gene_SRP118914_unfiltered) * 100, 2)
 [1] 48.46
 ```
+
+## Análisis de expresión diferencial
 
