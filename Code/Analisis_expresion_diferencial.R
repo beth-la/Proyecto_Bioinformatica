@@ -91,9 +91,46 @@ table(rse_gene_SRP118914$assigned_gene_prop < 0.3)
 gene_means <- rowMeans(assay(rse_gene_SRP118914, "counts"))
 summary(gene_means)
 
-# Utilizamos solo awurellos genes cuyo valor medio de expresion sea mayor a 0.1
+# Utilizamos solo aquellos genes cuyo valor medio de expresion sea mayor a 0.1
 rse_gene_SRP118914 <- rse_gene_SRP118914[gene_means > 0.1, ]
 
 ## Porcentaje de genes que se retuvieron
 round(nrow(rse_gene_SRP118914) / nrow(rse_gene_SRP118914_unfiltered) * 100, 2)
+
+# Modelo estadisitco:
+## Usaremos shiny otra ves
+app <- ExploreModelMatrix(
+  sampleData = colData(rse_gene_SRP118914),
+  designFormula = ~ sra_attribute.timepoint
+)
+if (interactive()) shiny::runApp(app)
+
+# Genrando boxplot para analisis de expresion de genes entre los estados tempranos y medios.
+library("ggplot2")
+ggplot(as.data.frame(colData(rse_gene_SRP118914)), aes(y = assigned_gene_prop, x = stage)) +
+  geom_boxplot() +
+  theme_bw(base_size = 20) +
+  ylab("Assigned Gene Prop") +
+  xlab("Stage")
+
+# Usaremos ExploreModelMatrix para el analisis de nuestro modelo
+# estadisitico.
+# Se quiere observar la contribucion del tiempo segun el estado (early o middle)
+# para el cual se este midiendo la expresion genica.
+ExpModelMatrix_SRP118914 <- ExploreModelMatrix::VisualizeDesign(
+  sampleData = colData(rse_gene_SRP118914),
+  designFormula = stage ~ sra_attribute.timepoint,
+  textSizeFitted = 4
+)
+
+# Visualizar las imagenes:
+cowplot::plot_grid(plotlist = ExpModelMatrix_SRP118914$plotlist)
+
+# Modelo estadistico: Decimos que la variable stage se encuentra explicada
+# por el (tiempo timepoint) y la proporsion de genes asignada.
+model <- model.matrix( ~ sra_attribute.timepoint + assigned_gene_prop,
+                      data = colData(rse_gene_SRP118914)
+)
+
+colnames(model)
 
