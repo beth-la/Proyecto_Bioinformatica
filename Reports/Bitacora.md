@@ -94,7 +94,7 @@ just_num <- regmatches(rse_gene_SRP118914$sra_attribute.timepoint, gregexpr("\\d
 rse_gene_SRP118914$sra_attribute.timepoint <- as.numeric(just_num)
 ```
 
-En los datos de las muestras que se tiene, únicamente hay de 3 a 72 horas después de causar el estimulo en los ratones, estos, según el articulo del cual obtuvimos los datos, disponible en el [repositorio](https://github.com/beth-la/Proyecto_Bioinformatica/blob/master/Reports/Associated_paper.pdf) corresponden a las etapas tempranas y medias, siendo estas aquellas con las que trabajaremos en este estudio de análisis diferencial. En el estudio citado, se trabaja de 3 a 672 horas. 
+En los datos de las muestras que se tiene, únicamente hay de 3 a 72 horas después de causar el estimulo en los ratones, estos, según el articulo del cual obtuvimos los datos, disponible en el [repositorio/Reports](https://github.com/beth-la/Proyecto_Bioinformatica/blob/master/Reports/Associated_paper.pdf) corresponden a las etapas tempranas y medias, siendo estas aquellas con las que trabajaremos en este estudio de análisis diferencial. En el estudio citado, se trabaja de 3 a 672 horas. 
 
 ```R
 > table(rse_gene_SRP118914$stage)
@@ -143,6 +143,44 @@ round(nrow(rse_gene_SRP118914) / nrow(rse_gene_SRP118914_unfiltered) * 100, 2)
 > dim(rse_gene_SRP118914)
 [1] 26857    10
 # De comenzar con 55421 genes, terminaremos trabajando unicamente con 26857
+```
+
+***Modelo estadístico***
+
+El set de datos que se esta analizando cuenta con diferentes características para cada una de las muestras a analizar, debemos tener en claro que luego del filtrado, nos encontraremos trabajando únicamente con 26857 genes y con 10 muestras, cada muestra cuenta con:
+
+- cell type: muscle satellite cells (MuSCs)
+- source_name: 168hr_MuSCs
+- strain: C57BL/6
+- timepoint: (3, 24, 48, 72, 168) hours
+- tissue: tibialis anterior muscle
+
+Nuestro modelo estadisitco, por lo tanto, se encuentra asociado al timepoint (la cual es la unica variable que cambia para cada muestra) y que será dividida en dos clasificaciones distintas: 
+
+- Early: 3 - 24 hrs luego del estimulo
+- Middle: 48 - 168 luego del estimulo* 
+
+```R
+# Usaremos ExploreModelMatrix para el analisis de nuestro modelo
+# estadisitico.
+# Se quiere observar la contribucion del tiempo segun el estado (early o middle)
+# para el cual se este midiendo la expresion genica.
+ExpModelMatrix_SRP118914 <- ExploreModelMatrix::VisualizeDesign(
+  sampleData = colData(rse_gene_SRP118914),
+  designFormula = stage ~ sra_attribute.timepoint,
+  textSizeFitted = 4
+)
+
+# Visualizar las imagenes:
+cowplot::plot_grid(plotlist = ExpModelMatrix_SRP118914$plotlist)
+
+# Modelo estadistico: Decimos que la variable stage se encuentra explicada
+# por el (tiempo timepoint) y la proporsion de genes asignada.
+model <- model.matrix( ~ sra_attribute.timepoint + assigned_gene_prop,
+                      data = colData(rse_gene_SRP118914)
+)
+
+# Normalización de datos
 ```
 
 ***Lista de tareas: Viernes 9 Feb 2023***
