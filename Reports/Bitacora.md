@@ -192,8 +192,8 @@ dge <- calcNormFactors(dge)
 
 ***Lista de tareas: Viernes 9 Feb 2023***
 
-- [ ] Actualizar y mejorar README del proyecto, agregar link hacia recount3.
-- [ ] Añadir licencia al repositorio.
+- [x] Actualizar y mejorar README del proyecto, agregar link hacia recount3.
+- [x] Añadir licencia al repositorio.
 - [x] Realizar pasos iniciales del análisis de expresión.
 
 ## Análisis de expresión diferencial
