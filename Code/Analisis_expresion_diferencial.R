@@ -70,7 +70,7 @@ rse_gene_SRP118914$sra_attribute.timepoint <- as.numeric(just_num)
 # Generamos variables para nuestro analisis:
 # Muestras early y middle
 # Early (3- 24hr luego del estimulo)
-# Middle (48 - 168 hr lueago del estimulo)
+# Middle (48 - 168 hr luego del estimulo)
 
 rse_gene_SRP118914$stage <- factor(ifelse(rse_gene_SRP118914$sra_attribute.timepoint <= 24, "early", "middle"))
 table(rse_gene_SRP118914$stage)
@@ -94,24 +94,8 @@ summary(gene_means)
 # Utilizamos solo aquellos genes cuyo valor medio de expresion sea mayor a 0.1
 rse_gene_SRP118914 <- rse_gene_SRP118914[gene_means > 0.1, ]
 
-## Porcentaje de genes que se retuvieron
+# Porcentaje de genes que se retuvieron
 round(nrow(rse_gene_SRP118914) / nrow(rse_gene_SRP118914_unfiltered) * 100, 2)
-
-# Modelo estadisitco:
-## Usaremos shiny otra ves
-app <- ExploreModelMatrix(
-  sampleData = colData(rse_gene_SRP118914),
-  designFormula = ~ sra_attribute.timepoint
-)
-if (interactive()) shiny::runApp(app)
-
-# Genrando boxplot para analisis de expresion de genes entre los estados tempranos y medios.
-library("ggplot2")
-ggplot(as.data.frame(colData(rse_gene_SRP118914)), aes(y = assigned_gene_prop, x = stage)) +
-  geom_boxplot() +
-  theme_bw(base_size = 20) +
-  ylab("Assigned Gene Prop") +
-  xlab("Stage")
 
 # Usaremos ExploreModelMatrix para el analisis de nuestro modelo
 # estadisitico.
@@ -129,8 +113,35 @@ cowplot::plot_grid(plotlist = ExpModelMatrix_SRP118914$plotlist)
 # Modelo estadistico: Decimos que la variable stage se encuentra explicada
 # por el (tiempo timepoint) y la proporsion de genes asignada.
 model <- model.matrix( ~ sra_attribute.timepoint + assigned_gene_prop,
-                      data = colData(rse_gene_SRP118914)
+                       data = colData(rse_gene_SRP118914)
 )
 
 colnames(model)
+
+# Visualizar las imagenes:
+cowplot::plot_grid(plotlist = ExpModelMatrix_SRP118914$plotlist)
+
+# Modelo estadistico: Decimos que la variable stage se encuentra explicada
+# por el (tiempo timepoint) y la proporsion de genes asignada.
+model <- model.matrix(~ sra_attribute.timepoint + assigned_gene_prop,
+                       data = colData(rse_gene_SRP118914)
+)
+
+# Normalizacion de los datos:
+library("limma")
+library("edgeR") # BiocManager::install("edgeR", update = FALSE)
+dge <- DGEList(
+  counts = assay(rse_gene_SRP118914, "counts"),
+  genes = rowData(rse_gene_SRP118914)
+)
+dge <- calcNormFactors(dge)
+
+# Analisis de expresion diferencial
+# Genrando boxplot para analisis de expresion de genes entre los estados tempranos y medios.
+library("ggplot2")
+ggplot(as.data.frame(colData(rse_gene_SRP118914)), aes(y = assigned_gene_prop, x = stage)) +
+  geom_boxplot() +
+  theme_bw(base_size = 20) +
+  ylab("Assigned Gene Prop") +
+  xlab("Stage")
 
