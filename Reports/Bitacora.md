@@ -181,13 +181,31 @@ model <- model.matrix( ~ sra_attribute.timepoint + assigned_gene_prop,
 )
 
 # Normalización de datos
+library("limma")
+library("edgeR") # BiocManager::install("edgeR", update = FALSE)
+dge <- DGEList(
+  counts = assay(rse_gene_SRP118914, "counts"),
+  genes = rowData(rse_gene_SRP118914)
+)
+dge <- calcNormFactors(dge)
 ```
 
 ***Lista de tareas: Viernes 9 Feb 2023***
 
 - [ ] Actualizar y mejorar README del proyecto, agregar link hacia recount3.
 - [ ] Añadir licencia al repositorio.
-- [ ] Realizar pasos iniciales del análisis de expresión.
+- [x] Realizar pasos iniciales del análisis de expresión.
 
 ## Análisis de expresión diferencial
 
+```R
+# Comenzamos generando un boxplot
+library("ggplot2")
+ggplot(as.data.frame(colData(rse_gene_SRP118914)), aes(y = assigned_gene_prop, x = stage)) +
+  geom_boxplot() +
+  theme_bw(base_size = 20) +
+  ylab("Assigned Gene Prop") +
+  xlab("Stage")
+```
+
+![image-20230211200304176](C:\Users\Brenda Elizabeth L\AppData\Roaming\Typora\typora-user-images\image-20230211200304176.png)
