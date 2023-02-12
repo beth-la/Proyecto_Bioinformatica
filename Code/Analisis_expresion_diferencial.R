@@ -118,7 +118,7 @@ model <- model.matrix( ~ sra_attribute.timepoint + assigned_gene_prop,
 
 colnames(model)
 
-# Visualizar las imagenes:
+# Imagenes:
 cowplot::plot_grid(plotlist = ExpModelMatrix_SRP118914$plotlist)
 
 # Modelo estadistico: Decimos que la variable stage se encuentra explicada
@@ -145,3 +145,66 @@ ggplot(as.data.frame(colData(rse_gene_SRP118914)), aes(y = assigned_gene_prop, x
   ylab("Assigned Gene Prop") +
   xlab("Stage")
 
+# Graficando
+library("limma")
+vGene <- voom(dge, model, plot = TRUE)
+
+eb_results <- eBayes(lmFit(vGene))
+
+de_results <- topTable(
+  eb_results,
+  coef = 2,
+  number = nrow(rse_gene_SRP118914),
+  sort.by = "none"
+)
+dim(de_results)
+
+## Genes diferencialmente expresados entre early y middle natal con FDR < 5%
+table(de_results$adj.P.Val < 0.05)
+
+## Visualicemos los resultados estadísticos
+plotMA(eb_results, coef = 2)
+volcanoplot(eb_results, coef = 2, highlight = 3, names = de_results$gene_name)
+
+de_results[de_results$gene_name %in% c("Postn", "Atp5b", "Gm4735"), ]
+
+## HEATMAP: Los 50 genes mas significativos.
+## Extraer valores de los genes de interés
+exprs_heatmap <- vGene$E[rank(de_results$adj.P.Val) <= 50, ]
+
+## Creemos una tabla con información de las muestras
+## y con nombres de columnas de interes.
+df <- as.data.frame(colData(rse_gene_SRP118914)[, c("stage", "sra_attribute.timepoint")])
+colnames(df) <- c("STAGE", "HOURS")
+
+# Generamos una funcion con lappy que nos permita buscar el nomre del gene segun el ID que se encuentra asociado a este.
+gene_names <- unlist(lapply(row.names(exprs_heatmap), function(id){
+  index <- match(id,de_results$gene_id)
+  return(de_results$gene_name[index])
+}))
+
+# Asegurarnos de que se obtuvieron los nombres correctamente:
+length(gene_names) == length(row.names(exprs_heatmap))
+
+# Asignamos los nombres de los genes.
+row.names(exprs_heatmap) <- gene_names
+
+library("pheatmap")
+pheatmap(
+  exprs_heatmap,
+  cluster_rows = TRUE,
+  cluster_cols = TRUE,
+  show_rownames = TRUE,
+  show_colnames = TRUE,
+  annotation_col = df
+)
+
+# PERFILES DE EXPRESION
+
+library("RColorBrewer")
+
+col.group <- df$STAGE
+levels(col.group) <- brewer.pal(nlevels(col.group), "Set1")
+col.group <- as.character(col.group)
+
+plotMDS(vGene$E, labels = df$HOURS, col = col.group)
