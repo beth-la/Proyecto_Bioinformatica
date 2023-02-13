@@ -11,7 +11,7 @@ Análisis de expresión diferencial utilizando datos del estudio: *Transcription
    - Explorando_proyectosRecountR: Código en el que se exploraron los proyectos disponibles enn recount3
 - Reports 
    - Associated_paper: *Transcriptional and Chromatin Dynamics of Muscle Regeneration after Severe Trauma*
-   - Bitacora: Bitacora asociada al codigo que se encuentra en Proyecto_bioinformatica/Code/Analisis_expresion_diferencial.R, unicamente con el proposito de organizar y tener mas orden en los pasos del proyecto. 
+   - Bitacora: Bitacora asociada al codigo que se encuentra en Proyecto_bioinformatica/Code/Analisis_expresion_diferencial.R, unicamente con el proposito de organizar y tener mas control sobre los pasos del proyecto. 
 - Plots
    	- ExploreModelMatrix.png: Output resultante de Explore Model matrix para el modelo estadistico. 
     - Heatmap.png: heatmap de los 50 genes mas significativos diferencialmente expresados
