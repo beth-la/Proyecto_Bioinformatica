@@ -6,7 +6,7 @@
 #   Lopez Angeles B. Elizabeth
 
 # Description
-#   Descargando datos del proyecto
+#   Descargando datos del proyecto y generando
 
 # Path
 
@@ -39,7 +39,6 @@ project_info <- subset(
   project == "SRP118914"
 )
 rse_gene_SRP118914 <- create_rse(project_info)
-assay(rse_gene_SRP118914, "counts") <- compute_read_counts(rse_gene_SRP118914)
 
 # Explorando objeto RSE
 rse_gene_SRP118914
@@ -111,7 +110,7 @@ ExpModelMatrix_SRP118914 <- ExploreModelMatrix::VisualizeDesign(
 cowplot::plot_grid(plotlist = ExpModelMatrix_SRP118914$plotlist)
 
 # Modelo estadistico: Decimos que la variable stage se encuentra explicada
-# por el (tiempo timepoint) y la proporsion de genes asignada.
+# por el tiempo (timepoint) y la proporcion de genes asignada.
 model <- model.matrix( ~ sra_attribute.timepoint + assigned_gene_prop,
                        data = colData(rse_gene_SRP118914)
 )
@@ -120,12 +119,6 @@ colnames(model)
 
 # Imagenes:
 cowplot::plot_grid(plotlist = ExpModelMatrix_SRP118914$plotlist)
-
-# Modelo estadistico: Decimos que la variable stage se encuentra explicada
-# por el (tiempo timepoint) y la proporsion de genes asignada.
-model <- model.matrix(~ sra_attribute.timepoint + assigned_gene_prop,
-                       data = colData(rse_gene_SRP118914)
-)
 
 # Normalizacion de los datos:
 library("limma")
@@ -145,7 +138,7 @@ ggplot(as.data.frame(colData(rse_gene_SRP118914)), aes(y = assigned_gene_prop, x
   ylab("Assigned Gene Prop") +
   xlab("Stage")
 
-# Graficando
+# Graficando: Mean-variance trend
 library("limma")
 vGene <- voom(dge, model, plot = TRUE)
 
@@ -159,7 +152,7 @@ de_results <- topTable(
 )
 dim(de_results)
 
-## Genes diferencialmente expresados entre early y middle natal con FDR < 5%
+## Genes diferencialmente expresados entre early y middle con FDR < 5%
 table(de_results$adj.P.Val < 0.05)
 
 ## Visualicemos los resultados estadísticos
@@ -171,6 +164,9 @@ de_results[de_results$gene_name %in% c("Postn", "Atp5b", "Gm4735"), ]
 ## HEATMAP: Los 50 genes mas significativos.
 ## Extraer valores de los genes de interés
 exprs_heatmap <- vGene$E[rank(de_results$adj.P.Val) <= 50, ]
+
+# Guardamos los IDs de los genes.
+gene_ids <- rownames(exprs_heatmap)
 
 ## Creemos una tabla con información de las muestras
 ## y con nombres de columnas de interes.
@@ -196,7 +192,8 @@ pheatmap(
   cluster_cols = TRUE,
   show_rownames = TRUE,
   show_colnames = TRUE,
-  annotation_col = df
+  annotation_col = df,
+  color = hcl.colors(50, "RdPu")
 )
 
 # PERFILES DE EXPRESION
@@ -208,3 +205,19 @@ levels(col.group) <- brewer.pal(nlevels(col.group), "Set1")
 col.group <- as.character(col.group)
 
 plotMDS(vGene$E, labels = df$HOURS, col = col.group)
+
+# Obtendremos los counts de los 10 genes mas significativos para relizar un barplot
+# Primero generamos un dataframe con los counts pertenecientes a estos genes.
+counts_first10genes <- data.frame(dge$counts[gene_ids[1:10],])
+
+# Renombrando rows de dataframe con los nombres de genes.
+row.names(counts_first10genes) <- gene_names[1:10]
+
+# Renombramos con el tiempo de cada muestra
+colnames(counts_first10genes) <- rse_gene_SRP118914$sra_attribute.timepoint
+
+# Redimensionamos el dataframe
+counts_first10genes <- apply(counts_first10genes, MARGIN = c(2,1), mean)
+
+# Generamos el barplot
+barplot(t(as.matrix(counts_first10genes)),beside=TRUE, legend.text = gene_names[1:10], col = rainbow(10), main = "Expresion diferencial: 10 genes mas significativos")
