@@ -158,7 +158,7 @@ El set de datos que se esta analizando cuenta con diferentes características pa
 Nuestro modelo estadisitco, por lo tanto, se encuentra asociado al timepoint (la cual es la unica variable que cambia para cada muestra) y que será dividida en dos clasificaciones distintas: 
 
 - Early: 3 - 24 hrs luego del estimulo
-- Middle: 48 - 168 luego del estimulo* 
+- Middle: 48 - 168 luego del estimulo 
 
 ```R
 # Usaremos ExploreModelMatrix para el analisis de nuestro modelo
@@ -209,3 +209,8 @@ ggplot(as.data.frame(colData(rse_gene_SRP118914)), aes(y = assigned_gene_prop, x
 ```
 
 ![image-20230211200304176](C:\Users\Brenda Elizabeth L\AppData\Roaming\Typora\typora-user-images\image-20230211200304176.png)
+
+# Cambios en el análisis de expresión diferencial 
+
+- [ ] Trabajar con los 100 genes mas significativos diferencialmente expresados: corregir 
+- [ ] Hacer barplots con los genes 
