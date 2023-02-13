@@ -114,7 +114,6 @@ cowplot::plot_grid(plotlist = ExpModelMatrix_SRP118914$plotlist)
 model <- model.matrix( ~ sra_attribute.timepoint + assigned_gene_prop,
                        data = colData(rse_gene_SRP118914)
 )
-
 colnames(model)
 
 # Imagenes:
