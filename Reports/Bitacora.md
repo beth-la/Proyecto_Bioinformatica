@@ -210,7 +210,8 @@ ggplot(as.data.frame(colData(rse_gene_SRP118914)), aes(y = assigned_gene_prop, x
 
 ![image-20230211200304176](C:\Users\Brenda Elizabeth L\AppData\Roaming\Typora\typora-user-images\image-20230211200304176.png)
 
-# Cambios en el análisis de expresión diferencial 
+# Cambios pedientes
 
-- [ ] Trabajar con los 100 genes mas significativos diferencialmente expresados: corregir 
-- [ ] Hacer barplots con los genes 
+- [x] Hacer barplots con los genes
+- [ ] Agregar  citas hacia códigos consultados y fuentes de información como recount3.
+- [ ] Tomas genes mas significativos y realizar análisis 
