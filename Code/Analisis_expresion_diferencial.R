@@ -6,16 +6,17 @@
 #   Lopez Angeles B. Elizabeth
 
 # Description
-#   Descargando datos del proyecto y generando
+#   Codigo de analisis de expresion diferencial.
 
-# Path
-
-#
-
-## Load recount3 R package
+# Añadiendo librerias:
 library("recount3")
+library("limma")
+library("edgeR") # BiocManager::install("edgeR", update = FALSE)
+library("ggplot2")
+library("pheatmap")
+library("RColorBrewer")
 
-## Cambiar el URL de recount3 a Amazon (AWS)
+# Cambienado el URL de recount3 a Amazon (AWS)
 
 getOption(
   "recount3_url",
@@ -24,20 +25,21 @@ getOption(
 
 options(recount3_url = "https://recount-opendata.s3.amazonaws.com/recount3/release")
 
-## Confirmando que se cambió el URL
 getOption(
   "recount3_url",
   "http://duffel.rail.bio/recount3"
 )
 
-## Vemos los proyectos disponibles de raton
+# Proyectos de ratón disponibles en recount3
 mouse_projects <- available_projects(organism = "mouse")
 
-#Descargando datos del proyecto SRP118914
+# Descargando datos del proyecto SRP118914
 project_info <- subset(
   mouse_projects,
   project == "SRP118914"
 )
+
+# Creando objeto
 rse_gene_SRP118914 <- create_rse(project_info)
 
 # Explorando objeto RSE
@@ -59,7 +61,7 @@ rse_gene_SRP118914$sra_attribute.strain <- factor(rse_gene_SRP118914$sra_attribu
 rse_gene_SRP118914$sra_attribute.source_name <- factor(rse_gene_SRP118914$sra_attribute.source_name)
 rse_gene_SRP118914$sra_attribute.tissue <- factor(rse_gene_SRP118914$sra_attribute.tissue)
 
-# Eliminando "horas" de timepoint
+# Eliminando "horas" de timepoint para tomarlo como un numeric
 # Primero extraemos solo los numeros con expresiones regulares.
 just_num <- regmatches(rse_gene_SRP118914$sra_attribute.timepoint, gregexpr("\\d+", rse_gene_SRP118914$sra_attribute.timepoint))
 
@@ -120,8 +122,7 @@ colnames(model)
 cowplot::plot_grid(plotlist = ExpModelMatrix_SRP118914$plotlist)
 
 # Normalizacion de los datos:
-library("limma")
-library("edgeR") # BiocManager::install("edgeR", update = FALSE)
+
 dge <- DGEList(
   counts = assay(rse_gene_SRP118914, "counts"),
   genes = rowData(rse_gene_SRP118914)
@@ -130,7 +131,7 @@ dge <- calcNormFactors(dge)
 
 # Analisis de expresion diferencial
 # Genrando boxplot para analisis de expresion de genes entre los estados tempranos y medios.
-library("ggplot2")
+
 ggplot(as.data.frame(colData(rse_gene_SRP118914)), aes(y = assigned_gene_prop, x = stage)) +
   geom_boxplot() +
   theme_bw(base_size = 20) +
@@ -138,7 +139,7 @@ ggplot(as.data.frame(colData(rse_gene_SRP118914)), aes(y = assigned_gene_prop, x
   xlab("Stage")
 
 # Graficando: Mean-variance trend
-library("limma")
+
 vGene <- voom(dge, model, plot = TRUE)
 
 eb_results <- eBayes(lmFit(vGene))
@@ -151,24 +152,20 @@ de_results <- topTable(
 )
 dim(de_results)
 
-## Genes diferencialmente expresados entre early y middle con FDR < 5%
+# Genes diferencialmente expresados entre early y middle con FDR < 5%
 table(de_results$adj.P.Val < 0.05)
 
-## Visualicemos los resultados estadísticos
+# Visualizar datos
 plotMA(eb_results, coef = 2)
 volcanoplot(eb_results, coef = 2, highlight = 3, names = de_results$gene_name)
 
 de_results[de_results$gene_name %in% c("Postn", "Atp5b", "Gm4735"), ]
 
-## HEATMAP: Los 50 genes mas significativos.
-## Extraer valores de los genes de interés
+# HEATMAP: Los 50 genes mas significativos.
+# Extraer valores de los genes de interés utilizando rank
 exprs_heatmap <- vGene$E[rank(de_results$adj.P.Val) <= 50, ]
 
-# Guardamos los IDs de los genes.
-gene_ids <- rownames(exprs_heatmap)
-
-## Creemos una tabla con información de las muestras
-## y con nombres de columnas de interes.
+# Creando un dtaframe con información de las muestrasy con nombres de columnas de interes.
 df <- as.data.frame(colData(rse_gene_SRP118914)[, c("stage", "sra_attribute.timepoint")])
 colnames(df) <- c("STAGE", "HOURS")
 
@@ -184,7 +181,6 @@ length(gene_names) == length(row.names(exprs_heatmap))
 # Asignamos los nombres de los genes.
 row.names(exprs_heatmap) <- gene_names
 
-library("pheatmap")
 pheatmap(
   exprs_heatmap,
   cluster_rows = TRUE,
@@ -197,8 +193,6 @@ pheatmap(
 
 # PERFILES DE EXPRESION
 
-library("RColorBrewer")
-
 col.group <- df$STAGE
 levels(col.group) <- brewer.pal(nlevels(col.group), "Set1")
 col.group <- as.character(col.group)
@@ -206,17 +200,24 @@ col.group <- as.character(col.group)
 plotMDS(vGene$E, labels = df$HOURS, col = col.group)
 
 # Obtendremos los counts de los 10 genes mas significativos para relizar un barplot
-# Primero generamos un dataframe con los counts pertenecientes a estos genes.
-counts_first10genes <- data.frame(dge$counts[gene_ids[1:10],])
+# Primero obtenemos los genes que se encuentran en las primeras 10 posiciones
+# Obtenemos los IDs y generamos un dataframe con esta informacion
+gene_ids <- vGene$E[rank(de_results$adj.P.Val) <= 10, ]
+gene_ids <- row.names(gene_ids)
+counts_first10genes <- data.frame(dge$counts[gene_ids,])
 
 # Renombrando rows de dataframe con los nombres de genes.
-row.names(counts_first10genes) <- gene_names[1:10]
+gene_10names <- unlist(lapply(gene_ids, function(id){
+  index <- match(id,de_results$gene_id)
+  return(de_results$gene_name[index])
+}))
+row.names(counts_first10genes) <- gene_10names
 
 # Renombramos con el tiempo de cada muestra
 colnames(counts_first10genes) <- rse_gene_SRP118914$sra_attribute.timepoint
 
-# Redimensionamos el dataframe
+# Redimensionamos el dataframe para una mejor visualizacion de la grafica
 counts_first10genes <- apply(counts_first10genes, MARGIN = c(2,1), mean)
 
 # Generamos el barplot
-barplot(t(as.matrix(counts_first10genes)),beside=TRUE, legend.text = gene_names[1:10], col = rainbow(10), main = "Expresion diferencial: 10 genes mas significativos")
+barplot(t(as.matrix(counts_first10genes)),beside=TRUE, legend.text = gene_10names, col = rainbow(11), main = "Expresion diferencial: Top 10")
