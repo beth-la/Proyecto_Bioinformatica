@@ -35,7 +35,7 @@ Los ratones que utilizaron para este estudio fueron heridos en el musculo tibial
 
 La siguiente imagen ilustra la cantidad, nombres y clasificación de cada muestra.
 
-![image-20230213184721621](C:\Users\Brenda Elizabeth L\AppData\Roaming\Typora\typora-user-images\image-20230213184721621.png)
+![experimental-data_ilustration](https://user-images.githubusercontent.com/100377667/218641402-cdbf56ed-c61c-4db1-a229-6da2e6b9e915.png)
 
 En cuanto a los genes, se comenzó trabajando con 55421, pero tras la limpieza y descarte de aquellos genes con expresiones muy bajas, se terminó conservando únicamente el 48.46% de estos, es decir 26857 genes. 
 
@@ -44,12 +44,11 @@ Para ver más a detalle los pasos que se siguieron y la estrategia de limpieza y
 Resultados:
 
 Hablaremos más a detalle de los resultados obtenidos de tres graficas en concreto: Heatmap, barplot y volcanoplot:
+![Volcano_plot](https://user-images.githubusercontent.com/100377667/218641502-ab03a5a2-c8cb-4a7a-b3a7-87a3aff9e282.png)
 
-![image-20230213194802123](C:\Users\Brenda Elizabeth L\AppData\Roaming\Typora\typora-user-images\image-20230213194802123.png)
+![Heatmap](https://user-images.githubusercontent.com/100377667/218641450-962bf901-4409-4dcf-a980-18270496fe35.png)
 
-![image-20230213194812471](C:\Users\Brenda Elizabeth L\AppData\Roaming\Typora\typora-user-images\image-20230213194812471.png)
-
-![image-20230213202336696](C:\Users\Brenda Elizabeth L\AppData\Roaming\Typora\typora-user-images\image-20230213202336696.png)
+![top10_genes_counts](https://user-images.githubusercontent.com/100377667/218641521-015e53bb-d5bb-4743-ab59-ef277f810452.png)
 
 | Gene    | Dominant Expresion Stage | Function                                                     |
 | ------- | ------------------------ | ------------------------------------------------------------ |
