@@ -210,8 +210,35 @@ ggplot(as.data.frame(colData(rse_gene_SRP118914)), aes(y = assigned_gene_prop, x
 
 ![image-20230211200304176](C:\Users\Brenda Elizabeth L\AppData\Roaming\Typora\typora-user-images\image-20230211200304176.png)
 
+```R
+#Se decidió tomar las 10 primeras posiciones de genes significativos para realizar un barplot
+# Obtendremos los counts de los 10 genes mas significativos para relizar un barplot
+# Primero obtenemos los genes que se encuentran en las primeras 10 posiciones 
+# Obtenemos los IDs y generamos un dataframe con esta informacion
+gene_ids <- vGene$E[rank(de_results$adj.P.Val) <= 10, ]
+gene_ids <- row.names(gene_ids)
+counts_first10genes <- data.frame(dge$counts[gene_ids,])
+
+# Renombrando rows de dataframe con los nombres de genes.
+gene_10names <- unlist(lapply(gene_ids, function(id){
+  index <- match(id,de_results$gene_id)
+  return(de_results$gene_name[index])
+}))
+row.names(counts_first10genes) <- gene_10names
+
+# Renombramos con el tiempo de cada muestra
+colnames(counts_first10genes) <- rse_gene_SRP118914$sra_attribute.timepoint
+
+# Redimensionamos el dataframe para una mejor visualizacion de la grafica
+counts_first10genes <- apply(counts_first10genes, MARGIN = c(2,1), mean)
+
+# Generamos el barplot
+barplot(t(as.matrix(counts_first10genes)),beside=TRUE, legend.text = gene_10names, col = rainbow(11), main = "Expresion diferencial: Top 10")
+
+```
+
 # Cambios pedientes
 
 - [x] Hacer barplots con los genes
 - [ ] Agregar  citas hacia códigos consultados y fuentes de información como recount3.
-- [ ] Tomas genes mas significativos y realizar análisis 
+- [x] Tomar genes mas significativos y realizar análisis 
