@@ -240,5 +240,5 @@ barplot(t(as.matrix(counts_first10genes)),beside=TRUE, legend.text = gene_10name
 # Cambios pedientes
 
 - [x] Hacer barplots con los genes
-- [ ] Agregar  citas hacia códigos consultados y fuentes de información como recount3.
+- [x] Agregar  citas hacia códigos consultados y fuentes de información como recount3.
 - [x] Tomar genes mas significativos y realizar análisis 

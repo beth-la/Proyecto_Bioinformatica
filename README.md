@@ -23,8 +23,6 @@ Análisis de expresión diferencial utilizando datos del estudio: *Transcription
     - Volcano_plot: Volcano plot de los genes diferencialmente expresados.
     - Mean_variance
 
-![Experimental data](C:\Users\Brenda Elizabeth L\Downloads\Untitled (1).png)
-
 ## Sources
 
 Este proyecto se realizó siguiendo el protocolo del Dr. Leonardo Collado Torres disponible en [github](https://github.com/lcolladotor/rnaseq_LCG-UNAM_2023).
