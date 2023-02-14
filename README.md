@@ -1,8 +1,10 @@
 # Análisis de expresión diferencial: "Transcriptional and Chromatin Dynamics of Muscle Regeneration after Severe Trauma"
 
-Análisis de expresión diferencial utilizando datos del estudio: *Transcriptional and Chromatin Dynamics of Muscle Regeneration after Severe Trauma*, obtenidos desde [recount3](https://jhubiostatistics.shinyapps.io/recount3-study-explorer/)). 
+Análisis de expresión diferencial utilizando datos del estudio: *Transcriptional and Chromatin Dynamics of Muscle Regeneration after Severe Trauma*, obtenidos desde [recount3](https://jhubiostatistics.shinyapps.io/recount3-study-explorer/). 
 
+## Experimental samples: 
 
+![image-20230213180252214](C:\Users\Brenda Elizabeth L\AppData\Roaming\Typora\typora-user-images\image-20230213180252214.png)
 
 ## Contents
 
