@@ -124,8 +124,7 @@ $middle
  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 hist(rse_gene_SRP118914$assigned_gene_prop)
 ```
-
-![image-20230209210130600](C:\Users\Brenda Elizabeth L\AppData\Roaming\Typora\typora-user-images\image-20230209210130600.png)
+![image](https://user-images.githubusercontent.com/100377667/218641991-2b2faf76-f4d4-4188-a1f5-23909aaf8477.png)
 
 ***Filtrado de genes:***
 
@@ -208,7 +207,7 @@ ggplot(as.data.frame(colData(rse_gene_SRP118914)), aes(y = assigned_gene_prop, x
   xlab("Stage")
 ```
 
-![image-20230211200304176](C:\Users\Brenda Elizabeth L\AppData\Roaming\Typora\typora-user-images\image-20230211200304176.png)
+![image](https://user-images.githubusercontent.com/100377667/218642044-a82e16ce-8939-4d5a-968f-0527bd753460.png)
 
 ```R
 #Se decidió tomar las 10 primeras posiciones de genes significativos para realizar un barplot
