@@ -2,10 +2,6 @@
 
 Análisis de expresión diferencial utilizando datos del estudio: *Transcriptional and Chromatin Dynamics of Muscle Regeneration after Severe Trauma*, obtenidos desde [recount3](https://jhubiostatistics.shinyapps.io/recount3-study-explorer/). 
 
-## Experimental samples: 
-
-![image-20230213180252214](C:\Users\Brenda Elizabeth L\AppData\Roaming\Typora\typora-user-images\image-20230213180252214.png)
-
 ## Contents
 
 - Code:
@@ -22,6 +18,16 @@ Análisis de expresión diferencial utilizando datos del estudio: *Transcription
     - MDS_plot: Gráfica MDS.
     - Top_10genes_couts: Grafica de barras que muestra la expresión del top 10 de genes mas significativos en contraste con el tiempo en el que fueron tomadas las muestras. 
     - Volcano_plot: Volcano plot de los genes diferencialmente expresados.
+
+## Sources
+
+Este proyecto se realizó siguiendo el protocolo del Dr. Leonardo Collado Torres disponible en [github](https://github.com/lcolladotor/rnaseq_LCG-UNAM_2023).
+
+- Collado-Torres L (2023). *Explore and download data from the recount3 project*. doi: [10.18129/B9.bioc.recount3](https://doi.org/10.18129/B9.bioc.recount3), https://github.com/LieberInstitute/recount3 - R package version 1.8.0, http://www.bioconductor.org/packages/recount3.
+- Wilks C, Zheng SC, Chen FY, Charles R, Solomon B, Ling JP, Imada EL, Zhang D, Joseph L, Leek JT, Jaffe AE, Nellore A, Collado-Torres L, Hansen KD, Langmead B (2021). “recount3: summaries and queries for large-scale RNA-seq expression and splicing.” *Genome Biol*. doi: [10.1186/s13059-021-02533-6](https://doi.org/10.1186/s13059-021-02533-6), https://doi.org/10.1186/s13059-021-02533-6.
+- Aguilar, C. A., Pop, R., Shcherbina, A., Watts, A., Matheny, R. W., Cacchiarelli, D., ... & Meissner, A. (2016). Transcriptional and chromatin dynamics of muscle regeneration after severe trauma. *Stem cell reports*, *7*(5), 983-997.
+
+*Los datos utilizados para el analisis de expresión diferencial en el presente proyecto no me pertenecen, fueron obtenidos desde recount3.*
 
 ## LICENSE 
 
