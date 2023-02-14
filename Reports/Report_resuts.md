@@ -6,7 +6,7 @@ Lunes 13 de Febrero del 2023
 
 El analisis de expresión diferencial que se encuentra en este repositorio fue generado con los datos obtenidos desde [recount3](https://jhubiostatistics.shinyapps.io/recount3-study-explorer/), los datos utilizados corresponden al proyecto: SRP118914 "Transcriptional and Chromatin Dynamics of Muscle Regeneration after Severe Trauma", el paper puede ser consultado en el siguiente path:
 
-```
+```R
 Proyecto_Bioinformatica/Reports/Associated_paper.pdf
 ```
 
@@ -16,13 +16,13 @@ Después de ser dañado, el tejido muscular adulto lleva a cabo a una secuencia 
 
 El código utilizado para obtener los resultados puede ser consultado en el siguiente path:
 
-```
+```R
 Proyecto_Bioinformatica/Analisis_expresion_diferencial.R
 ```
 
 Si lo desea, también puede consultar la bitácora que se realizó con forme de avanzaba en los pasos del proyecto, sin embargo, esta fue escrita con el único propósito de llevar más orden en los pasos.
 
-```
+```R
 Proyecto_Bioinformatica/Reports/Bitacora.md
 ```
 

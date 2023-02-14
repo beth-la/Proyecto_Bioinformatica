@@ -23,8 +23,6 @@ Análisis de expresión diferencial utilizando datos del estudio: *Transcription
     - Top_10genes_couts: Grafica de barras que muestra la expresión del top 10 de genes mas significativos en contraste con el tiempo en el que fueron tomadas las muestras. 
     - Volcano_plot: Volcano plot de los genes diferencialmente expresados.
     - Mean_variance
-    <<<<<<< HEAD
-    =======
 ## Experimental data 
 ![experimental-data_ilustration](https://user-images.githubusercontent.com/100377667/218641062-63b562a5-5ad5-45a8-acf7-86fdef1c5806.png)
 >>>>>>> 30b9a3e11fcb2bda2cb4f38ba2c0d02ef94e9fa6
