@@ -12,6 +12,7 @@ Análisis de expresión diferencial utilizando datos del estudio: *Transcription
    - Bitacora: Bitacora asociada al codigo que se encuentra en Proyecto_bioinformatica/Code/Analisis_expresion_diferencial.R, unicamente con el proposito de organizar y tener mas control sobre los pasos del proyecto. 
    - Report_results.md: Reporte de análsisi de los resultados en formato .md
    - Report_results.pdf: Reporte de análisis de los resultados en formato .pdf 
+   - Experimental-data_illustration: Ilustación de los datos para el análisis de expresión diferencial.
 - Plots 
     - Heatmap.png: heatmap de los 50 genes mas significativos diferencialmente expresados.
     - ExploreModelMatrix.png: Output resultante de Explore Model matrix para el modelo estadistico.
@@ -21,6 +22,8 @@ Análisis de expresión diferencial utilizando datos del estudio: *Transcription
     - Top_10genes_couts: Grafica de barras que muestra la expresión del top 10 de genes mas significativos en contraste con el tiempo en el que fueron tomadas las muestras. 
     - Volcano_plot: Volcano plot de los genes diferencialmente expresados.
     - Mean_variance
+
+![Experimental data](C:\Users\Brenda Elizabeth L\Downloads\Untitled (1).png)
 
 ## Sources
 
