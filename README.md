@@ -1,6 +1,7 @@
 # Análisis de expresión diferencial: "Transcriptional and Chromatin Dynamics of Muscle Regeneration after Severe Trauma"
 
 Análisis de expresión diferencial utilizando datos del estudio: *Transcriptional and Chromatin Dynamics of Muscle Regeneration after Severe Trauma*, obtenidos desde [recount3](https://jhubiostatistics.shinyapps.io/recount3-study-explorer/). 
+![experimental-data_ilustration](https://user-images.githubusercontent.com/100377667/218644095-d159e430-acda-4e8e-b2cb-71f7c915a1e8.png)
 
 ## Contents
 
@@ -23,10 +24,7 @@ Análisis de expresión diferencial utilizando datos del estudio: *Transcription
     - Top_10genes_couts: Grafica de barras que muestra la expresión del top 10 de genes mas significativos en contraste con el tiempo en el que fueron tomadas las muestras. 
     - Volcano_plot: Volcano plot de los genes diferencialmente expresados.
     - Mean_variance
-## Experimental data 
-![experimental-data_ilustration](https://user-images.githubusercontent.com/100377667/218641062-63b562a5-5ad5-45a8-acf7-86fdef1c5806.png)
->>>>>>> 30b9a3e11fcb2bda2cb4f38ba2c0d02ef94e9fa6
-
+    
 ## Sources
 
 Este proyecto se realizó siguiendo el protocolo del Dr. Leonardo Collado Torres disponible en [github](https://github.com/lcolladotor/rnaseq_LCG-UNAM_2023).
