@@ -2,7 +2,6 @@
 
 Análisis de expresión diferencial utilizando datos del estudio: *Transcriptional and Chromatin Dynamics of Muscle Regeneration after Severe Trauma*, obtenidos desde [recount3](https://jhubiostatistics.shinyapps.io/recount3-study-explorer/). 
 ![experimental-data_ilustration](https://user-images.githubusercontent.com/100377667/218644095-d159e430-acda-4e8e-b2cb-71f7c915a1e8.png)
-
 ## Contents
 
 - Code:
