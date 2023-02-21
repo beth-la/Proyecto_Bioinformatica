@@ -20,7 +20,7 @@ El código utilizado para obtener los resultados puede ser consultado en el sigu
 Proyecto_Bioinformatica/Analisis_expresion_diferencial.R
 ```
 
-Si lo desea, también puede consultar la bitácora que se realizó con forme de avanzaba en los pasos del proyecto, sin embargo, esta fue escrita con el único propósito de llevar más orden en los pasos.
+Si lo desea, también puede consultar la bitácora que se realizó con forme se avanzaba en los pasos del proyecto. Esta fue escrita con el único propósito de llevar más orden en los pasos y establecer posibles estrategias para el análsis.
 
 ```R
 Proyecto_Bioinformatica/Reports/Bitacora.md
