@@ -10,7 +10,7 @@ El analisis de expresión diferencial que se encuentra en este repositorio fue g
 Proyecto_Bioinformatica/Reports/Associated_paper.pdf
 ```
 
-Después de ser dañado, el tejido muscular adulto lleva a cabo a una secuencia de eventos bien coordinados de carácter fisiológico y molecular que promueve la regeneración. El propósito de la investigación es entender los mecanismos epigenéticos y transcripcionales que controlan estos eventos. La información obtenida a partir de este estudio se empleará para llevar a cabo un análisis de expresión diferencial utilizando paquetes de Bioconductor en R.
+Después de ser dañado, el tejido muscular adulto lleva a cabo una secuencia de eventos bien coordinados de carácter fisiológico y molecular que promueve la regeneración. El propósito de la investigación es entender los mecanismos epigenéticos y transcripcionales que controlan estos eventos. La información obtenida a partir de este estudio se empleará para llevar a cabo un análisis de expresión diferencial utilizando paquetes de Bioconductor en R.
 
 ## Análisis de los resultados obtenidos:
 
@@ -65,7 +65,7 @@ Hablaremos más a detalle de los resultados obtenidos de tres graficas en concre
 | Slc25a5 | middle                   | This gene encodes a transmembrane domain-containing protein that localizes to the mitochondrial inner membrane. The encoded protein facilitates the exchange of ADP from the cytoplasm with ATP from the mitochondria. |
 | Col1a2  | early                    | This gene encodes the pro-alpha2 chain of type I collagen whose triple helix comprises two alpha1 chains and one alpha2 chain. Type I is a fibril-forming collagen found in most connective tissues and is abundant in bone, cornea, dermis and tendon. Mutations in this gene are associated with osteogenesis imperfecta types I-IV, Ehlers-Danlos syndrome type VIIB, recessive Ehlers-Danlos syndrome Classical type, idiopathic osteoporosis, and atypical Marfan syndrome. Symptoms associated with mutations in this gene, however, tend to be less severe than mutations in the gene for the alpha1 chain of type I collagen (COL1A1) reflecting the different role of alpha2 chains in matrix integrity. |
 
-Dentro de las 10 posiciones más significativas de expresión diferencial existen algunos genes que capturan nuestra atención debido a su función y expresión. Encontramos que los genes Postn y Col3a1 tienen un rol en el desarrollo y regeneración de tejidos conectivos, la ausencia de ellos usualmente causa enfermedades cardiacas, defectos dentales o de esqueleto para Postn. En el caso de Col3a1, su ausencia o deficiencia causa la muerte. Los resultados obtenidos muestran que el proceso de regeneración comienza por los menos 3 horas luego de que se produjo el estímulo en los ratones, pero va en aumento entre las horas siguientes, llegando a su máxima expresión entre las 72 y 168 horas. 
+Dentro de las 10 posiciones más significativas de expresión diferencial existen algunos genes que capturan nuestra atención debido a su función y expresión. Encontramos que los genes Postn y Col3a1 tienen un rol en el desarrollo y regeneración de tejidos conectivos, la ausencia de Postn usualmente causa enfermedades cardiacas, defectos de esqueleto o dentales. En el caso de Col3a1, su ausencia o deficiencia causa la muerte. Los resultados obtenidos muestran que el proceso de regeneración comienza por los menos 3 horas luego de que se produjo el estímulo en los ratones, pero va en aumento entre las horas siguientes, llegando a su máxima expresión entre las 72 y 168 horas. 
 
 # Sources:
 
